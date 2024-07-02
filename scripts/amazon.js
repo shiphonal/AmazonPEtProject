@@ -55,7 +55,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     button.addEventListener('click', () => {
         const productId = button.dataset.productId;
         let matchingItem;
-        let totalCartQuantity = 1;
+        let totalCartQuantity = 0;
 
         cart.forEach((item) => {
             if (productId === item.productId) {
