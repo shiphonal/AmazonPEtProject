@@ -1,6 +1,6 @@
 import {cart} from '../data/cart.js';
 import {products} from '../data/products.js'
-import {isPushed, addToCartText} from './button-add-to-cart.js';
+import {addToCartText} from './button-add-to-cart.js';
 
 products.forEach((product) => {
     const html = `<div class="product-container">
