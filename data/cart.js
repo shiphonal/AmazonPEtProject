@@ -37,3 +37,14 @@ export function updateCartQuantity(productId) {
 
     return totalCartQuantity;
 }
+
+export function removeFromCart(productId) {
+    let deleteIndex;
+    cart.forEach((cartItem, index) => {
+        if (cartItem.productId === productId) {
+            deleteIndex = index;
+        }
+    });
+    cart.splice(deleteIndex, 1);
+    return deleteIndex;
+}
