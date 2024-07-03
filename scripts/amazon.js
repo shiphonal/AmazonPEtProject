@@ -1,6 +1,6 @@
-import {cart, updateCartQuantity} from '../data/cart.js';
+import {updateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js'
-import {addToCartText} from './button-add-to-cart.js';
+import {addToCartText} from '../data/add-label.js';
 
 products.forEach((product) => {
     const html = `<div class="product-container">
@@ -66,6 +66,5 @@ document.querySelectorAll('.add-to-cart-button').forEach((button) => {
     button.addEventListener('click', () => {
         const productId = button.dataset.productId;
         document.querySelector('.js-cart-quantity').innerText = updateCartQuantity(productId);
-        console.log(cart);
     });
 });
