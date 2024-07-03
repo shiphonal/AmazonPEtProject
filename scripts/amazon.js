@@ -1,10 +1,9 @@
-import {cart, updateCartQuantity, saveToLocalStorage} from '../data/cart.js';
+import {fullCartQuantity, updateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js'
 import {addToCartText} from './utils/add-icon.js';
 import {price} from './utils/price.js'
 
-document.querySelector('.js-cart-quantity').innerText = cart.length;
-saveToLocalStorage();
+document.querySelector('.js-cart-quantity').innerText = fullCartQuantity();
 products.forEach((product) => {
     const html = `<div class="product-container">
           <div class="product-image-container">

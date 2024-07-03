@@ -26,13 +26,18 @@ export function addToCart(productId, matchingItem) {
 
 export function updateCartQuantity(productId) {
     let matchingItem;
-    let totalCartQuantity = 0;
+
     cart.forEach((cartItem) => {
         if (productId === cartItem.productId) {
             matchingItem = cartItem;
         }
     });
     addToCart(productId, matchingItem);
+    return fullCartQuantity();
+}
+
+export function fullCartQuantity() {
+    let totalCartQuantity = 0;
     cart.forEach((cartItem) => {
         totalCartQuantity += cartItem.quantity;
     });
