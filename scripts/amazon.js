@@ -1,8 +1,13 @@
+import {cart} from '../data/cart.js';
+import {products} from '../data/products.js'
+import {isPushed, addToCartText} from './button-add-to-cart.js';
+
 products.forEach((product) => {
     const html = `<div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
-              src="${product.image}">
+              src="${product.image}"
+              alt = "text">
           </div>
 
           <div class="product-name limit-text-to-2-lines">
@@ -11,7 +16,8 @@ products.forEach((product) => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars*10}.png">
+              src="images/ratings/rating-${product.rating.stars*10}.png"
+              alt = "text">
             <div class="product-rating-count link-primary">
               ${product.rating.count}
             </div>
@@ -22,7 +28,7 @@ products.forEach((product) => {
           </div>
 
           <div class="product-quantity-container">
-            <select id = "selected">
+            <select id = "selected" data-product-id = "${product.id}" class = "js-selector">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -39,7 +45,7 @@ products.forEach((product) => {
           <div class="product-spacer"></div>
 
           <div class="added-to-cart">
-            <img src="images/icons/checkmark.png" class = "css-icon-checkmark">
+            <img src="images/icons/checkmark.png" class = "css-icon-checkmark" alt="text">
             Added
           </div>
           
@@ -68,14 +74,19 @@ document.querySelectorAll('.add-to-cart-button').forEach((button) => {
             }
         });
 
-        if (matchingItem) {
-            matchingItem.quantity += Number(document.getElementById("selected").value);
-        } else {
-            cart.push({
-                productId: productId,
-                quantity: 1
-            });
-        }
+        document.querySelectorAll('.js-selector').forEach((div) => {
+            const productIdDev = div.dataset.productId;
+            if (productIdDev === productId) {
+                if (matchingItem) {
+                    matchingItem.quantity += Number(div.value);
+                } else {
+                    cart.push({
+                        productId: productId,
+                        quantity: Number(div.value)
+                    });
+                }
+            }
+        });
 
         cart.forEach((item) => {
             totalCartQuantity += item.quantity;

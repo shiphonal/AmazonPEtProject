@@ -1,5 +1,5 @@
-let isPushed = false;
-function addToCartText(index) {
+export let isPushed = false;
+export function addToCartText(index) {
     if (!isPushed) {
         isPushed = true;
         document.querySelectorAll('.added-to-cart')
