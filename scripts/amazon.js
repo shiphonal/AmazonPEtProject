@@ -3,7 +3,7 @@ import {products} from '../data/products.js'
 import {addToCartText} from './utils/add-icon.js';
 import {price} from './utils/price.js'
 
-document.querySelector('.js-cart-quantity').innerText = fullCartQuantity();
+document.querySelector('.js-cart-quantity').innerHTML = fullCartQuantity();
 products.forEach((product) => {
     const html = `<div class="product-container">
           <div class="product-image-container">

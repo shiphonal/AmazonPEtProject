@@ -1,7 +1,9 @@
-import {cart, removeFromCart} from '../data/cart.js';
+import {cart, removeFromCart, fullCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js'
 import {price} from './utils/price.js';
+import {beginAdd} from 'utils/Update';
 
+UpdateCheckOut();
 cart.forEach((cartItem) => {
     const productId = cartItem.productId;
     let matchingProduct;
@@ -32,9 +34,10 @@ cart.forEach((cartItem) => {
               <span>
                 Quantity: <span class="quantity-label">${cartItem.quantity}</span>
               </span>
-              <span class="update-quantity-link link-primary">
-                Update
-              </span>
+              <div data-product-id = "${matchingProduct.id}" 
+                   class = "div-quantity-link div-quantity-link-${matchingProduct.id}">
+                <span class="update-quantity-link link-primary">Update</span>
+              </div>
               <span class="delete-quantity-link link-primary js-delete-link"
                     data-product-id = "${matchingProduct.id}">
                 Delete
@@ -48,7 +51,7 @@ cart.forEach((cartItem) => {
             </div>
             <div class="delivery-option">
               <input type="radio" checked="" class="delivery-option-input" 
-                name="delivery-option-${matchingProduct.id}">
+                     name="delivery-option-${matchingProduct.id}">
               <div>
                 <div class="delivery-option-date">
                   Tuesday, June 21
@@ -90,9 +93,19 @@ cart.forEach((cartItem) => {
 
 document.querySelectorAll('.js-delete-link').forEach((link) => {
     link.addEventListener('click', () => {
-        const productId = link.dataset.productId
+        const productId = link.dataset.productId;
         removeFromCart(productId);
         const container = document.querySelector(`.js-cart-item-container-${productId}`)
         container.remove();
+        UpdateCheckOut();
     })
+
 });
+
+beginAdd();
+
+function UpdateCheckOut() {
+    document.querySelector('.checkout-header-middle-section')
+        .innerHTML = `Checkout (<a class="return-to-home-link"
+                              href="amazon.html">${fullCartQuantity()} items</a>)`;
+}
