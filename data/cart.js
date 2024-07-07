@@ -1,3 +1,7 @@
+import {deliveryOption} from "./deliveryOption.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+import price from "../scripts/utils/price.js";
+
 export let cart = JSON.parse(localStorage.getItem('cart'));
 if (!cart) {
     cart = [];
@@ -54,4 +58,37 @@ export function removeFromCart(productId) {
     });
     cart.splice(deleteIndex, 1);
     saveToLocalStorage();
+}
+
+export function updateDeliveryOption(productId, deliveryId) {
+    let matchingItem;
+    cart.forEach((cartItem) => {
+        if (productId === cartItem.productId) {
+            matchingItem = cartItem;
+        }
+    });
+    matchingItem.deliveryId = deliveryId;
+    document.querySelector(`.delivery-date-${matchingItem.id}`);
+    deliveryChecked(matchingItem);
+
+    saveToLocalStorage();
+}
+
+export function deliveryChecked(cartItem) {
+    const deliveryId = cartItem.deliveryId;
+    let deliveryItem;
+    deliveryOption.forEach((option) => {
+        if (option.id === deliveryId) {
+            deliveryItem = option;
+        }
+    });
+    const today = dayjs();
+    const deliveryDate = today.add(
+        deliveryItem.deliveryTime,
+        'days'
+    );
+    const dateString = deliveryDate.format('dddd, MMMM D');
+    const priceString = deliveryItem.deliveryPrice === 0 ?
+        'FREE Shipping' : `${price(deliveryItem.deliveryPrice)} - Shipping`;
+    return dateString;
 }
