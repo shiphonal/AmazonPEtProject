@@ -1,43 +1,19 @@
-export function beginAdd() {
-    document.querySelectorAll('.div-quantity-link').forEach((link) => {
-        link.addEventListener('click', () => {
-            const productId = link.dataset.productId;
-            addSaveLogic(productId);
-        });
-    });
-}
+import {cart} from '../../data/cart.js'
 
-let isAddSave = false;
-let isAddUpdate = false;
-
-function addSaveLogic(productId) {
-    document.querySelector(`.div-quantity-link-${productId}`)
-        .innerHTML = `<input class = "css-input-quantity">
-            <span class="link-primary div-quantity-link-${productId}">Save</span>`;
-    if (!isAddUpdate || !isAddSave) {
-        addSave(productId);
-        isAddSave = false;
+export function renderUpdateSave(item) {
+    if (item[0] % 2) {
+        return 'Save';
+    } else {
+        cart[item[1]].quantity += Number(document.querySelector('.js-input-quantity').value);
+        console.log(cart)
+        return 'Update';
     }
 }
-function addSave(productId) {
-    isAddUpdate = true;
-    document.querySelector(`.div-quantity-link-${productId}`)
-        .addEventListener('click', () => {
-            addUpdateLogic(productId);
-        });
-}
-function addUpdateLogic(productId) {
-    document.querySelector(`.div-quantity-link-${productId}`).innerHTML =
-        `<span class="link-primary">Update</span>`;
-    if (!isAddUpdate || !isAddSave) {
-        addUpdate(productId);
-        isAddUpdate = false;
+
+export function renderInput(item) {
+    if (item[0] % 2) {
+        return `<input class = "css-input-quantity js-input-quantity">`;
+    } else {
+        return ``;
     }
-}
-function addUpdate(productId) {
-    isAddSave = true;
-    document.querySelector(`.div-quantity-link-${productId}`)
-        .addEventListener('click', () => {
-            addSaveLogic(productId);
-        });
 }

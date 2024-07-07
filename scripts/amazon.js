@@ -1,11 +1,12 @@
 import {fullCartQuantity, updateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js'
-import {addToCartText} from './utils/add-icon.js';
+import {addToCartText} from './utils/addIcon.js';
 import {price} from './utils/price.js'
 
 document.querySelector('.js-cart-quantity').innerHTML = fullCartQuantity();
 products.forEach((product) => {
-    const html = `<div class="product-container">
+    const html = `
+        <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
               src="${product.image}"
@@ -46,13 +47,14 @@ products.forEach((product) => {
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart"
+               data-product-id = "${product.id}">
             <img src="images/icons/checkmark.png" class = "css-icon-checkmark" alt="text">
             Added
           </div>
           
           <p class = "js-button-add-pressed"></p>
-          <button class="add-to-cart-button button-primary" 
+          <button class = "add-to-cart-button button-primary" 
                   data-product-id = "${product.id}">
             Add to Cart
           </button>
@@ -60,8 +62,9 @@ products.forEach((product) => {
     document.querySelector('.products-grid').innerHTML += html;
 
     document.querySelectorAll('.add-to-cart-button')
-        .forEach((button, index) => {
-            button.addEventListener('click', () => addToCartText(index))});
+        .forEach((button) => {
+            const buttonId = button.dataset.productId;
+            button.addEventListener('click', () => addToCartText(buttonId))});
 });
 
 document.querySelectorAll('.add-to-cart-button').forEach((button) => {

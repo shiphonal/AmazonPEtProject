@@ -5,7 +5,7 @@ import {deliveryOption, deliveryChecked, updateDeliveryOption} from '../../data/
 import {getProduct} from '../../data/products.js'
 import price from '../utils/price.js';
 import {renderPaymentSummary} from "./paymentSummary.js";
-
+import {renderUpdateSave, renderInput} from "../utils/update.js";
 
 export function renderOrderSummary() {
     document.querySelector('.checkout-header-middle-section')
@@ -35,16 +35,20 @@ export function renderOrderSummary() {
                 </div>
                 <div class="product-quantity">
                   <span>
-                    Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+                    Quantity: <span class="quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
                   </span>
-                  <div data-product-id = "${matchingProduct.id}" 
-                       class = "div-quantity-link div-quantity-link-${matchingProduct.id}">
-                    <span class="update-quantity-link link-primary">Update</span>
+                  <div class = "css-style-buttons">
+                      <div class = "div-quantity-link div-quantity-link-${matchingProduct.id}"></div>
+                      <span class="update-quantity-link link-primary update-quantity-link-${matchingProduct.id}"
+                              data-product-id = "${matchingProduct.id}">
+                          Update
+                      </span>
+                      <span class="delete-quantity-link link-primary js-delete-link"
+                            data-product-id = "${matchingProduct.id}">
+                        Delete
+                      </span>
                   </div>
-                  <span class="delete-quantity-link link-primary js-delete-link"
-                        data-product-id = "${matchingProduct.id}">
-                    Delete
-                  </span>
+                  
                 </div>
               </div>
     
@@ -103,7 +107,24 @@ export function renderOrderSummary() {
             renderOrderSummary();
             renderPaymentSummary();
         })
+    });
 
+
+    let cartIsPushed = Array.apply(null, Array(cart.length))
+        .map((x, i) => [0, i]);
+    document.querySelectorAll('.update-quantity-link')
+        .forEach((link, index) => {
+        link.addEventListener('click', () => {
+            cartIsPushed[index][0] += 1;
+            const productId = link.dataset.productId;
+            document.querySelector(`.update-quantity-link-${productId}`)
+                .innerHTML = renderUpdateSave(cartIsPushed[index]);
+            document.querySelector(`.div-quantity-link-${productId}`)
+                .innerHTML = renderInput(cartIsPushed[index]);
+            document.querySelector(`.quantity-label-${productId}`)
+                .innerHTML = cart[index].quantity;
+            renderPaymentSummary();
+        });
     });
 
     document.querySelectorAll('.delivery-option').forEach((element) => {
