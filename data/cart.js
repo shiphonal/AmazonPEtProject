@@ -16,7 +16,8 @@ export function addToCart(productId, matchingItem) {
             } else {
                 cart.push({
                     productId: productId,
-                    quantity: Number(selectorItem.value)
+                    quantity: Number(selectorItem.value),
+                    deliveryId: '1'
                 });
             }
         }
