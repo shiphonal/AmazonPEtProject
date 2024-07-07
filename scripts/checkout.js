@@ -3,7 +3,7 @@ import products from '../data/products.js'
 import price from './utils/price.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOption} from '../data/deliveryOption.js';
-// import {beginAdd} from 'utils/Update.js';
+// import {beginAdd} from 'utils/update.js';
 
 
 
