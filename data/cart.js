@@ -1,10 +1,7 @@
-import {deliveryChecked} from "./deliveryOption.js";
-
 export let cart = JSON.parse(localStorage.getItem('cart'));
 if (!cart) {
     cart = [];
 }
-
 export function saveToLocalStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
@@ -58,16 +55,3 @@ export function removeFromCart(productId) {
     saveToLocalStorage();
 }
 
-export function updateDeliveryOption(productId, deliveryId) {
-    let matchingItem;
-    cart.forEach((cartItem) => {
-        if (productId === cartItem.productId) {
-            matchingItem = cartItem;
-        }
-    });
-    matchingItem.deliveryId = deliveryId;
-    document.querySelector(`.delivery-date-${matchingItem.id}`);
-    deliveryChecked(matchingItem);
-
-    saveToLocalStorage();
-}

@@ -1,5 +1,6 @@
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import price from "../scripts/utils/price.js";
+import {cart, saveToLocalStorage} from "./cart.js";
 
 export const deliveryOption = [{
     id: '1',
@@ -37,4 +38,18 @@ export function deliveryChecked(cartItem) {
     const priceString = deliveryItem.deliveryPrice === 0 ?
         'FREE Shipping' : `${price(deliveryItem.deliveryPrice)} - Shipping`;
     return dateString;
+}
+
+export function updateDeliveryOption(productId, deliveryId) {
+    let matchingItem;
+    cart.forEach((cartItem) => {
+        if (productId === cartItem.productId) {
+            matchingItem = cartItem;
+        }
+    });
+    matchingItem.deliveryId = deliveryId;
+    document.querySelector(`.delivery-date-${matchingItem.id}`);
+    deliveryChecked(matchingItem);
+
+    saveToLocalStorage();
 }
