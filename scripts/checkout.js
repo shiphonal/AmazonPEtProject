@@ -5,22 +5,23 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOption} from '../data/deliveryOption.js';
 // import {beginAdd} from 'utils/Update.js';
 
-UpdateCheckOut();
 
 
+function renderOrderSummary() {
+    document.querySelector('.js-order-summary').innerHTML = '';
 
-cart.forEach((cartItem) => {
-    const productId = cartItem.productId;
-    let matchingProduct;
+    cart.forEach((cartItem) => {
+        const productId = cartItem.productId;
+        let matchingProduct;
 
-    products.forEach((productItem) => {
-        if (productItem.id === productId) {
-            matchingProduct = productItem;
-        }
-    });
+        products.forEach((productItem) => {
+            if (productItem.id === productId) {
+                matchingProduct = productItem;
+            }
+        });
 
-    document.querySelector('.js-order-summary').innerHTML +=
-    `<div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
+        document.querySelector('.js-order-summary').innerHTML +=
+            `<div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
         <div class="delivery-date-${matchingProduct.id} delivery-date">
           Delivery date: ${deliveryChecked(cartItem)}
         </div>
@@ -58,44 +59,36 @@ cart.forEach((cartItem) => {
           </div>
         </div>
       </div>`;
-});
+    });
 
 
-document.querySelectorAll('.js-delete-link').forEach((link) => {
-    link.addEventListener('click', () => {
-        const productId = link.dataset.productId;
-        removeFromCart(productId);
-        const container = document.querySelector(`.js-cart-item-container-${productId}`)
-        container.remove();
-        UpdateCheckOut();
-    })
+    document.querySelectorAll('.js-delete-link').forEach((link) => {
+        link.addEventListener('click', () => {
+            const productId = link.dataset.productId;
+            removeFromCart(productId);
+            const container = document.querySelector(`.js-cart-item-container-${productId}`)
+            container.remove();
+            renderOrderSummary();
+        })
 
-});
-
-// beginAdd();
-
-function UpdateCheckOut() {
-    document.querySelector('.checkout-header-middle-section')
-        .innerHTML = `Checkout (<a class="return-to-home-link"
-                              href="amazon.html">${fullCartQuantity()} items</a>)`;
-}
+    });
 
 
-function createHTML(matchingProduct, cartItem) {
-    let html = '';
-    deliveryOption.forEach((deliveryItem) => {
-        const today = dayjs();
-        const deliveryDate = today.add(
-            deliveryItem.deliveryTime,
-            'days'
-        );
-        const dateString = deliveryDate.format('dddd, MMMM D');
-        const priceString = deliveryItem.deliveryPrice === 0 ?
-            'FREE Shipping' : `${price(deliveryItem.deliveryPrice)} - Shipping`;
+    function createHTML(matchingProduct, cartItem) {
+        let html = '';
+        deliveryOption.forEach((deliveryItem) => {
+            const today = dayjs();
+            const deliveryDate = today.add(
+                deliveryItem.deliveryTime,
+                'days'
+            );
+            const dateString = deliveryDate.format('dddd, MMMM D');
+            const priceString = deliveryItem.deliveryPrice === 0 ?
+                'FREE Shipping' : `${price(deliveryItem.deliveryPrice)} - Shipping`;
 
 
-        const isChecked = deliveryItem.id === cartItem.deliveryId;
-        html += `<div class="delivery-option"
+            const isChecked = deliveryItem.id === cartItem.deliveryId;
+            html += `<div class="delivery-option"
                       data-product-id = "${matchingProduct.id}"
                       data-delivery-option-id = "${deliveryItem.id}">
              <input type="radio" 
@@ -111,14 +104,25 @@ function createHTML(matchingProduct, cartItem) {
                </div>
              </div>
         </div>`;
+        });
+        return html;
+    }
+
+    document.querySelectorAll('.delivery-option').forEach((element) => {
+        const productId = element.dataset.productId;
+        const deliveryId = element.dataset.deliveryOptionId;
+        element.addEventListener('click', () => {
+            updateDeliveryOption(productId, deliveryId);
+            renderOrderSummary();
+        });
     });
-    return html;
 }
 
-document.querySelectorAll('.delivery-option').forEach((element) => {
-    const productId = element.dataset.productId;
-    const deliveryId = element.dataset.deliveryOptionId;
-    element.addEventListener('click', () => {
-        updateDeliveryOption(productId, deliveryId);
-    });
-});
+UpdateCheckOut();
+renderOrderSummary();
+
+function UpdateCheckOut() {
+    document.querySelector('.checkout-header-middle-section')
+        .innerHTML = `Checkout (<a class="return-to-home-link"
+                              href="amazon.html">${fullCartQuantity()} items</a>)`;
+}
