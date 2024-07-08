@@ -1,8 +1,8 @@
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {cart, removeFromCart, fullCartQuantity}
-    from '../../data/cart.js';
-import {deliveryOption, deliveryChecked, updateDeliveryOption} from '../../data/deliveryOption.js';
-import {getProduct} from '../../data/products.js'
+    from '../data/cart.js';
+import {deliveryOption, deliveryChecked, updateDeliveryOption} from '../data/deliveryOption.js';
+import {getProduct} from '../data/products.js'
 import price from '../utils/price.js';
 import {renderPaymentSummary} from "./paymentSummary.js";
 import {renderUpdateSave, renderInput} from "../utils/update.js";

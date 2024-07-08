@@ -55,7 +55,7 @@
   }
 }
 
-.checkout-header-middle-section {
+.Checkout-header-middle-section {
   flex: 1;
   flex-shrink: 0;
   text-align: center;
@@ -75,7 +75,7 @@
 }
 
 @media (max-width: 1000px) {
-  .checkout-header-middle-section {
+  .Checkout-header-middle-section {
     font-size: 20px;
     margin-right: 60px;
   }
@@ -86,7 +86,7 @@
 }
 
 @media (max-width: 575px) {
-  .checkout-header-middle-section {
+  .Checkout-header-middle-section {
     margin-right: 5px;
   }
 }

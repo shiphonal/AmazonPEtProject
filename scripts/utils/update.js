@@ -1,4 +1,4 @@
-import {cart, saveToLocalStorage} from '../../data/cart.js'
+import {cart, saveToLocalStorage} from '../data/cart.js'
 import {checkoutHeader} from "./checkoutHeader.js";
 
 export function renderUpdateSave(item) {

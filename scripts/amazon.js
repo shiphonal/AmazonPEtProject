@@ -1,5 +1,5 @@
-import {fullCartQuantity, updateCartQuantity} from '../data/cart.js';
-import {products} from '../data/products.js'
+import {fullCartQuantity, updateCartQuantity} from './data/cart.js';
+import {products} from './data/products.js'
 import {addToCartText} from './utils/addIcon.js';
 import {price} from './utils/price.js'
 

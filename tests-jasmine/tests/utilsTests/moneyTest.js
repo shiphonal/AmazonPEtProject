@@ -1,4 +1,4 @@
-import price from '../scripts/utils/price.js';
+import price from '../../../scripts/utils/price.js';
 
 describe('test suite: price', () => {
     it('convert cents into dollars', () => {
