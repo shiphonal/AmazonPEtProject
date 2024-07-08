@@ -1,6 +1,5 @@
 import price from '../scripts/utils/price.js';
 
-
 console.log('Tests with price:');
 if (price(2095) === '20.95') {
     console.log('2095 passed');
