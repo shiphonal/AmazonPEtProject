@@ -1,4 +1,5 @@
 import {cart, saveToLocalStorage} from '../../data/cart.js'
+import {checkoutHeader} from "./checkoutHeader.js";
 
 export function renderUpdateSave(item) {
     if (item[0] % 2) {
@@ -6,6 +7,7 @@ export function renderUpdateSave(item) {
     } else {
         cart[item[1]].quantity = Number(document.querySelector('.js-input-quantity').value);
         saveToLocalStorage();
+        checkoutHeader();
         return 'Update';
     }
 }

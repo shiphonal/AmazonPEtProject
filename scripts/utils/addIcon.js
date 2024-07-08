@@ -8,7 +8,7 @@ export function addToCartText(buttonId) {
                 setTimeout(function() {
                     element.classList.add('added-to-cart');
                     element.classList.remove('added-to-cart-pressed');
-                    }, 1000);
+                    }, 300);
                 }
             });
 }

@@ -6,18 +6,18 @@ import {getProduct} from '../../data/products.js'
 import price from '../utils/price.js';
 import {renderPaymentSummary} from "./paymentSummary.js";
 import {renderUpdateSave, renderInput} from "../utils/update.js";
+import {checkoutHeader} from "../utils/checkoutHeader.js";
 
 export function renderOrderSummary() {
-    document.querySelector('.checkout-header-middle-section')
-        .innerHTML = `Checkout (<a class="return-to-home-link"
-                              href="amazon.html">${fullCartQuantity()} items</a>)`;
+    checkoutHeader();
     document.querySelector('.js-order-summary').innerHTML = '';
 
     cart.forEach((cartItem) => {
         const productId = cartItem.productId;
         const matchingProduct = getProduct(productId);
 
-        document.querySelector('.js-order-summary').innerHTML += `
+        if (cartItem.quantity !== 0) {
+            document.querySelector('.js-order-summary').innerHTML += `
           <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date-${matchingProduct.id} delivery-date">
               Delivery date: ${deliveryChecked(cartItem)}
@@ -60,6 +60,7 @@ export function renderOrderSummary() {
               </div>
             </div>
           </div>`;
+        }
     });
 
 
