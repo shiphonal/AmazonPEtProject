@@ -2,6 +2,7 @@ import {cart} from '../data/cart.js';
 import {getProduct} from '../data/products.js'
 import {getDeliveryOption} from '../data/deliveryOption.js';
 import price from '../utils/price.js';
+import {checkoutPayment} from "../utils/checkoutHeader.js";
 
 export function renderPaymentSummary() {
     let productPriceCents = 0;
@@ -22,7 +23,7 @@ export function renderPaymentSummary() {
           </div>
 
           <div class="payment-summary-row">
-            <div>Items (3):</div>
+            <div class = "js-quantity-items">Items (0):</div>
             <div class="payment-summary-money">$${price(productPriceCents)}</div>
           </div>
 
@@ -49,4 +50,5 @@ export function renderPaymentSummary() {
           <button class="place-order-button button-primary">
             Place your order
           </button>`;
+    checkoutPayment();
 }
