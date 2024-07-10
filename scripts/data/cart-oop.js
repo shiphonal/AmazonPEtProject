@@ -58,10 +58,11 @@ function Cart(localStorageKey) {
     };
 }
 
-export const cart = Cart();
-export const businessCart = Cart();
-cart.loadCart('cart-oop');
-businessCart.loadCart('cart-business');
+export const cart = Cart('cart-oop');
+export const businessCart = Cart('cart-business');
+cart.loadCart();
+businessCart.loadCart();
 
 console.log(cart);
 console.log(businessCart);
+
