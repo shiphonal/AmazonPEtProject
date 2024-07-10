@@ -36,7 +36,7 @@ export function cartForEach() {
                       ${matchingProduct.name}
                     </div>
                     <div class="product-price">
-                      $${price(matchingProduct.priceCents)}
+                      ${matchingProduct.getPrice()}
                     </div>
                     <div class="product-quantity js-product-quantity-${matchingProduct.id}">
                       <span>

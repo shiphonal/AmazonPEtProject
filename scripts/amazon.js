@@ -10,25 +10,19 @@ products.forEach((product) => {
           <div class="product-image-container">
             <img class="product-image"
               src="${product.image}"
-              alt = "text">
+              alt = "">
           </div>
 
-          <div class="product-name limit-text-to-2-lines">
-            ${product.name}
-          </div>
+          <div class="product-name limit-text-to-2-lines">${product.name}</div>
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars*10}.png"
-              alt = "text">
-            <div class="product-rating-count link-primary">
-              ${product.rating.count}
-            </div>
+              src="${product.getStarsUrl()}"
+              alt = "">
+            <div class="product-rating-count link-primary">${product.rating.count}</div>
           </div>
 
-          <div class="product-price">
-            $${price(product.priceCents)}
-          </div>
+          <div class="product-price">${product.getPrice()}</div>
 
           <div class="product-quantity-container">
             <select id = "selected" data-product-id = "${product.id}" class = "js-selector">

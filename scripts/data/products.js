@@ -1,13 +1,32 @@
+import price from '../utils/price.js';
+
 export function getProduct(productId) {
-  let matchingProduct;
+    let matchingProduct;
+    products.forEach((productItem) => {
+        if (productItem.id === productId) {
+            matchingProduct = productItem;
+        }
+    });
+    return matchingProduct;
+}
 
-  products.forEach((productItem) => {
-    if (productItem.id === productId) {
-      matchingProduct = productItem;
+class Product {
+    id; image; name; rating; priceCents;
+    constructor(productDetails) {
+        this.id = productDetails.id;
+        this.image = productDetails.image;
+        this.name = productDetails.name;
+        this.rating = productDetails.rating;
+        this.priceCents = productDetails.priceCents;
     }
-  });
 
-  return matchingProduct;
+    getStarsUrl() {
+      return `images/ratings/rating-${this.rating.stars*10}.png`;
+    }
+
+    getPrice() {
+        return `$${price(this.priceCents)}`;
+    }
 }
 
 export const products = [
@@ -669,4 +688,6 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productItem) => {
+    return new Product(productItem);
+});
