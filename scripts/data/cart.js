@@ -1,4 +1,5 @@
 export let cart; loadCart();
+
 export function loadCart() {
     cart = JSON.parse(localStorage.getItem('cart'));
     if (!cart) {
@@ -43,7 +44,6 @@ export function removeFromCart(productId) {
     saveToLocalStorage();
 }
 
-
 export function updateCartQuantity(productId) {
     let matchingItem;
 
@@ -63,5 +63,3 @@ export function fullCartQuantity() {
     });
     return totalCartQuantity;
 }
-
-
