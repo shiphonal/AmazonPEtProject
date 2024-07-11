@@ -1,8 +1,16 @@
 import {cartForEach} from '../../../scripts/check/orderSummary.js';
 import {cart, loadCart} from "../../../scripts/data/cart.js";
+import {loadProducts} from "../../../scripts/data/products.js";
 
 describe('test suite: renderOrderSummary', () => {
     const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
+
+    // done - позволяет управлять временем, когда функция закончится
+    beforeAll((done) => {
+        loadProducts(() => {
+            done();
+        });
+    });
 
     beforeEach(() => {
         document.querySelector('.js-test-container')
