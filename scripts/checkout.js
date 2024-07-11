@@ -1,6 +1,8 @@
 import {renderOrderSummary} from './check/orderSummary.js';
 import {renderPaymentSummary} from "./check/paymentSummary.js";
-import '../backend/backend-pactice.js';
+import {loadProducts} from "./data/products.js";
 
-renderOrderSummary();
-renderPaymentSummary();
+loadProducts(() => {
+    renderOrderSummary();
+    renderPaymentSummary();
+});
