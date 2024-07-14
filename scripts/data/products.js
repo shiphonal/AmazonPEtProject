@@ -62,3 +62,19 @@ export function loadProducts(fun) { // callback function
     xhr.open('GET', 'https://supersimplebackend.dev/products');
     xhr.send();
 }
+
+
+export function loadProductsFetch() {
+    return fetch('https://supersimplebackend.dev/products')
+        .then((response) => {
+            return response.json();
+        })
+
+        .then((productsData) => {
+            products = productsData.map((productItem) => {
+                if (productItem.type === 'clothing')
+                    return new Clothing(productItem);
+                return new Product(productItem)
+            });
+        });
+}

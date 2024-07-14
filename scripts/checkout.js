@@ -1,15 +1,11 @@
 import {renderOrderSummary} from './check/orderSummary.js';
 import {renderPaymentSummary} from "./check/paymentSummary.js";
-import {loadProducts} from "./data/products.js";
+import {loadProductsFetch} from "./data/products.js";
 
 // здесь мы можем указать promis`ы, которые должны
 // выполнятся одновременно, пока они все не закончатся
 Promise.all([
-    new Promise((resolve) => {
-        loadProducts(() => {
-            resolve('value 1');
-        });
-    })
+    loadProductsFetch()
 
 ]).then(() => {
     renderOrderSummary();
