@@ -63,7 +63,6 @@ export function loadProducts(fun) { // callback function
     xhr.send();
 }
 
-
 export function loadProductsFetch() {
     return fetch('https://supersimplebackend.dev/products')
         .then((response) => {
