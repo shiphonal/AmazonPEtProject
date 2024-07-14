@@ -5,17 +5,31 @@ import {loadProductsFetch} from "./data/products.js";
 
 // async - преобразует функцию так, чтобы она возвращала promise
 async function loadPage() {
-    // await позволяет писать асинхронный код как обычный
-    // await можно использовать только внутри async function
-    await loadProductsFetch();
-    // чтобы не использовать then мы можем сохранить
-    // результат await в переменную
+    try {
+        // throw 'error1';
+
+        // await позволяет писать асинхронный код как обычный
+        // await можно использовать только внутри async function
+        await loadProductsFetch();
+        /*
+          //  чтобы не использовать then мы можем сохранить
+          //  результат await в переменную
+
+        const promise = await new Promise((resolve, reject) => {
+            throw 'error2';
+            loadProducts(() => {
+                reject('error3');
+                resolve('value1');
+        });
+         */
+    } catch (error) {
+        console.log('Unexpected error');
+        console.log(error);
+    }
 
     renderOrderSummary();
     renderPaymentSummary();
-}
-
-loadPage().then();
+} loadPage().then();
 
 
 
